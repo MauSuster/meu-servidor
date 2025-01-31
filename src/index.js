@@ -7,10 +7,10 @@ const app = express()
 const router = express.Router()
 
 let connection = null;
-function getConnection(){
+async function getConnection(){
   if(connection) return connection;
 
-  connection = sql.connect(connString);
+  await sql.connect(connString);
   return connection
 }
 
