@@ -1,8 +1,11 @@
 const express = require("express")
+require("dotenv").config();
+const connString = process.env.CONNECTION_STRING;
 
 const path = require("path")
 const app = express()
 const router = express.Router()
+
 
 app.use(express.static(path.join(__dirname, '/pages/public')));
 
@@ -14,7 +17,7 @@ router.get("/calculoNac", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/calculoNac.html" ))
 })
 
-router.get("/home", (req, res)=>{
+router.get("/", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/home.html" ))
 })
 
