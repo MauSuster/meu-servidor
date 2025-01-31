@@ -7,17 +7,18 @@ const app = express()
 const router = express.Router()
 
 let connection = null;
-async function getConnection(){
+function getConnection(){
   if(connection) return connection;
 
-  connection =  await sql.connect(connString);
+  connection = sql.connect(connString);
   return connection
 }
 
 async function execSQLQuery(sqlQry){
-    const req = await getConnection().request();
-    const {recordSet} = await request.query(sqlQry);
-    return recordSet;
+    await getConnection();
+    const request = sql.request();
+    const {recordset} = await request.query(sqlQry);
+    return recordset;
 
 }
 
