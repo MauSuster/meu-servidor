@@ -25,10 +25,18 @@ async function execSQLQuery(sqlQry){
 
 app.use(express.static(path.join(__dirname, '/pages/public')));
 
+app.use("/vendedores:id", async (req, res) =>{
+    const id = parseInt(req.params.id);
+    const results = await execSQLQuery("SELECT * FROM Vendedores WHERE ID =" + id);
+    res.json(results);
+})
+
 app.use("/vendedores", async (req, res) =>{
     const results = await execSQLQuery("SELECT * FROM Vendedores");
     res.json(results);
 })
+
+
 
 router.get("/calculoInt", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/calculoInt.html" ))

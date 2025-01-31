@@ -7,13 +7,15 @@ async function createTable(){
     try{
         await sql.connect(connString);
         const table = new sql.Table("Vendedores");
-        table.create = true;
+       table.create = true;
         table.columns.add("ID", sql.Int, {nullable: false, primary: true, identity: true})
         table.columns.add("NOME", sql.NVarChar(150), {nullable: false})
         table.columns.add("EMAIL", sql.NVarChar(30), {nullable:false})
         table.columns.add("SENHA", sql.NVarChar(30), {nullable:false})
 
-        table.rows.add(1, "MAURICIO", "sustermauricio@gmail.com", "123");
+ //       table.rows.add(1, "MAURICIO", "sustermauricio@gmail.com", "123");
+        table.rows.add(2, "PEDRO", "pedro@gmail.com", "456");
+        table.rows.add(3, "JOANA", "joana@gmail.com", "789");
 
         const request = new sql.Request();
         await request.bulk(table);
