@@ -1,6 +1,7 @@
 const express = require("express")
 require("dotenv").config();
 const connString = process.env.CONNECTION_STRING;
+const sql = require("mssql");
 
 const path = require("path")
 const app = express()
