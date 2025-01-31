@@ -12,6 +12,10 @@ router.get("/dashboard", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/dashboard.html" ))
 })
 
+router.get("/dashboard", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/index.html" ))
+})
+
 app.use(router)
 
 app.listen(3333, ()=>{
