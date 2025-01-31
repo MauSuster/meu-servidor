@@ -25,9 +25,13 @@ async function execSQLQuery(sqlQry){
 
 app.use(express.static(path.join(__dirname, '/pages/public')));
 
-app.use("/vendedores:id", async (req, res) =>{
+app.post("/vendedores", async (req, res) =>{
+    const { id, nome, email, senha} = req.body;
+    await execSQLQuery(`INSERT INTO Vendedores(ID, NOME, EMAIL, SENHA) VALUES (${id}, '${nome}', '${email}', '${senha}')`);
+})
+app.use("/vendedores/:id", async (req, res) => {
     const id = parseInt(req.params.id);
-    const results = await execSQLQuery("SELECT * FROM Vendedores WHERE ID =" + id);
+    const results = await execSQLQuery("SELECT * FROM Vendedores WHERE ID=" + id);
     res.json(results);
 })
 
