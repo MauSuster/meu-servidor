@@ -23,7 +23,7 @@ async function execSQLQuery(sqlQry){
 
 app.use(express.static(path.join(__dirname, '/pages/public')));
 
-app.use("/vendedores", (req, res) =>{
+app.use("/vendedores", async (req, res) =>{
     const results = await execSQLQuery("SELECT * FROM Vendedores");
     res.json(results);
 })
