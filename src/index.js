@@ -6,8 +6,27 @@ const path = require("path")
 const app = express()
 const router = express.Router()
 
+let connection = null;
+async function getConnection(){
+  if(connection) return connection;
+
+  connection =  await sql.connect(connString);
+  return connection
+}
+
+async function execSQLQuery(sqlQry){
+    const req = await getConnection().request();
+    const {recordSet} = await request.query(sqlQry);
+    return recordSet;
+
+}
 
 app.use(express.static(path.join(__dirname, '/pages/public')));
+
+app.use("/vendedores", (req, res) =>{
+    const results = await execSQLQuery("SELECT * FROM Vendedores");
+    res.json(results);
+})
 
 router.get("/calculoInt", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/calculoInt.html" ))
