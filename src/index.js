@@ -4,21 +4,30 @@ const path = require("path")
 const app = express()
 const router = express.Router()
 
-router.get("/", (req, res)=>{
+app.use(express.static(path.join(__dirname, '/pages/public')));
+
+router.get("/calculoInt", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/calculoInt.html" ))
+})
+
+router.get("/calculoNac", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/calculoNac.html" ))
+})
+
+router.get("/home", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/home.html" ))
 })
 
-router.get("/dashboard", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/pages/dashboard.html" ))
+router.get("/menu", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/menu.html" ))
 })
 
-router.get("/index", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/pages/index.html" ))
-
+router.get("/result", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/result.html" ))
 })
 
-router.get("/main", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/pages/main.js" ))
+router.get("/resultInt", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/resultInt.html" ))
 })
 
 app.use(router)

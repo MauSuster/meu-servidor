@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Khipo</title>
+    <title>Resultado da Simulação</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -54,56 +55,39 @@
             right: -50px;
             transform: rotate(20deg);
         }
-        .login-container {
+        .container {
             background-color: white;
             padding: 30px;
             border-radius: 15px;
             box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            text-align: left;
             width: 350px;
             position: relative;
             z-index: 1;
         }
-        .login-container img {
-            width: 150px;
-            margin-bottom: 15px;
-        }
-        .login-container h2 {
+        .container h2 {
             color: #5a2ca0;
             margin-bottom: 20px;
             font-size: 24px;
         }
-        .input-group {
-            margin: 15px 0;
-            text-align: left;
-        }
-        .input-group label {
-            display: block;
+        .container p {
             color: #333;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
             font-size: 16px;
+            line-height: 1.6;
         }
-        .btn {
-            background-color: #5a2ca0;
+        .button {
+            padding: 12px 20px;
+            background: #8a49c7;
             color: white;
+            font-size: 18px;
             border: none;
-            padding: 12px;
-            width: 100%;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
-            font-weight: bold;
             margin-top: 15px;
+            width: 100%;
             transition: 0.3s;
         }
-        .btn:hover {
+        .button:hover {
             background-color: #4a1f80;
             transform: scale(1.05);
         }
@@ -116,27 +100,37 @@
         <div class="triangle-large"></div>
         <div class="triangle-outline"></div>
     </div>
-    <div class="login-container">
-        <img src="khipologo.png" alt="Khipo Logo">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" required>
-            </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" required>
-            </div>
-            <button type="submit" class="btn">Entrar</button>
-        </form>
+    <div class="container">
+        <h2>Resultado da Simulação</h2>
+        <p id="result"></p>
+        <button class="button" onclick="downloadPDF()">Baixar PDF</button>
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = "menu";
-        });
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const valorMensal = parseFloat(urlParams.get('valorMensal'));
+            const valorHora = parseFloat(urlParams.get('valorHora'));
+            const quantHoras = parseFloat(urlParams.get('quantHoras'));
+            const valorClienteHora = parseFloat(urlParams.get('valorClienteHora'));
+            const faturamento = quantHoras * valorClienteHora;
+            
+            document.getElementById("result").innerHTML = ` 
+                <strong>Valor Mensal:</strong> R$ ${valorMensal.toFixed(2)}<br>
+                <strong>Valor Hora:</strong> R$ ${valorHora.toFixed(2)}<br>
+                <strong>Quantidade de Horas:</strong> ${quantHoras}<br>
+                <strong>Valor por Hora Cliente:</strong> R$ ${valorClienteHora.toFixed(2)}<br>
+                <strong>Faturamento Total:</strong> R$ ${faturamento.toFixed(2)}
+            `;
+        };
+
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            const content = document.getElementById("result").innerText;
+            doc.text(content, 10, 10);
+            doc.save("resultado_simulacao.pdf");
+        }
     </script>
 </body>
 </html>
