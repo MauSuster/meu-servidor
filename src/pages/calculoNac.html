@@ -3,14 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Khipo</title>
+    <title>Simulador de Cálculo</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             background: linear-gradient(135deg, #5a2ca0, #8a49c7);
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             margin: 0;
             position: relative;
@@ -54,58 +55,51 @@
             right: -50px;
             transform: rotate(20deg);
         }
-        .login-container {
+        .container {
             background-color: white;
             padding: 30px;
             border-radius: 15px;
-            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            width: 350px;
+            box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            width: 90%;
+            max-width: 400px;
             position: relative;
             z-index: 1;
         }
-        .login-container img {
-            width: 150px;
-            margin-bottom: 15px;
-        }
-        .login-container h2 {
+        .container h2 {
             color: #5a2ca0;
             margin-bottom: 20px;
             font-size: 24px;
+            text-align: center; /* Centralizando o título */
         }
-        .input-group {
-            margin: 15px 0;
-            text-align: left;
-        }
-        .input-group label {
-            display: block;
-            color: #333;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .input-group input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
+        label {
             font-size: 16px;
+            color: #000000;
+            margin-bottom: 8px;
+            display: block; /* Garante que o label ocupe toda a linha */
         }
-        .btn {
-            background-color: #5a2ca0;
-            color: white;
-            border: none;
-            padding: 12px;
+        .input-field {
             width: 100%;
-            border-radius: 5px;
-            cursor: pointer;
+            padding: 12px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 16px;
+            box-sizing: border-box; /* Certifica que o padding não altera o tamanho da caixa */
+        }
+        .button {
+            width: 100%;
+            padding: 12px;
+            background: #8a49c7;
+            color: white;
             font-size: 18px;
-            font-weight: bold;
-            margin-top: 15px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
             transition: 0.3s;
         }
-        .btn:hover {
-            background-color: #4a1f80;
-            transform: scale(1.05);
+        .button:hover {
+            background-color: #5a2ca0;
         }
     </style>
 </head>
@@ -116,27 +110,27 @@
         <div class="triangle-large"></div>
         <div class="triangle-outline"></div>
     </div>
-    <div class="login-container">
-        <img src="khipologo.png" alt="Khipo Logo">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <div class="input-group">
-                <label for="email">E-mail</label>
-                <input type="email" id="email" required>
+    <div class="container">
+        <h2>Simulador de Cálculo</h2>
+        <form id="calcForm" action="result" method="GET">
+            <div class="section">
+                <label for="valorMensal">Valor Mensal</label>
+                <input type="number" id="valorMensal" name="valorMensal" class="input-field" required>
             </div>
-            <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" required>
+            <div class="section">
+                <label for="valorHora">Valor Hora</label>
+                <input type="number" id="valorHora" name="valorHora" class="input-field" required>
             </div>
-            <button type="submit" class="btn">Entrar</button>
+            <div class="section">
+                <label for="quantHoras">Quantidade de Horas</label>
+                <input type="number" id="quantHoras" name="quantHoras" class="input-field" required>
+            </div>
+            <div class="section">
+                <label for="valorClienteHora">R$ por Hora</label>
+                <input type="number" id="valorClienteHora" name="valorClienteHora" class="input-field" required>
+            </div>
+            <button type="submit" class="button">SIMULAR</button>
         </form>
     </div>
-
-    <script>
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            window.location.href = "menu";
-        });
-    </script>
 </body>
 </html>
