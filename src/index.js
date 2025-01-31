@@ -17,7 +17,7 @@ async function getConnection(){
 
 async function execSQLQuery(sqlQry){
     await getConnection();
-    const request = sql.request();
+    const request = sql.Request();
     const {recordset} = await request.query(sqlQry);
     return recordset;
 
