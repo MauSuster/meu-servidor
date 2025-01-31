@@ -26,8 +26,8 @@ router.get("/result", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/result.html" ))
 })
 
-router.get("/resultInt", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/pages/resultInt.html" ))
+router.get("/dashboard", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/index.html" ))
 })
 
 app.use(router)
