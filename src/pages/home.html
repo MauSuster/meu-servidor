@@ -16,21 +16,106 @@
             position: relative;
             overflow: hidden;
         }
-        .countdown {
+        .background-triangles {
             position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(0, 0, 0, 0.7);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .triangle-large {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: transparent;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 260px solid white;
+            opacity: 0.1;
+        }
+        .triangle-outline {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: transparent;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-bottom: 280px solid rgba(255, 255, 255, 0.3);
+        }
+        .triangle-large:nth-child(1), .triangle-outline:nth-child(2) {
+            top: -50px;
+            left: -50px;
+            transform: rotate(-20deg);
+        }
+        .triangle-large:nth-child(3), .triangle-outline:nth-child(4) {
+            bottom: -50px;
+            right: -50px;
+            transform: rotate(20deg);
+        }
+        .login-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 350px;
+            position: relative;
+            z-index: 1;
+        }
+        .login-container img {
+            width: 150px;
+            margin-bottom: 15px;
+        }
+        .login-container h2 {
+            color: #5a2ca0;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+        .input-group {
+            margin: 15px 0;
+            text-align: left;
+        }
+        .input-group label {
+            display: block;
+            color: #333;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #5a2ca0;
             color: white;
-            padding: 10px 20px;
-            border-radius: 10px;
+            border: none;
+            padding: 12px;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
             font-size: 18px;
             font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+        .btn:hover {
+            background-color: #4a1f80;
+            transform: scale(1.05);
         }
     </style>
 </head>
 <body>
+    <div class="background-triangles">
+        <div class="triangle-large"></div>
+        <div class="triangle-outline"></div>
+        <div class="triangle-large"></div>
+        <div class="triangle-outline"></div>
+    </div>
     <div class="login-container">
         <img src="khipologo.png" alt="Khipo Logo">
         <h2>Login</h2>
@@ -46,38 +131,63 @@
             <button type="submit" class="btn">Entrar</button>
         </form>
     </div>
-    
-    <div class="countdown" id="countdown"></div>
-    
+
     <script>
-        function getNextFriday() {
-            let now = new Date();
-            let nextFriday = new Date();
-            nextFriday.setDate(now.getDate() + ((5 - now.getDay() + 7) % 7)); // Próxima sexta-feira
-            nextFriday.setHours(20, 0, 0, 0); // 20:00
-            return nextFriday;
-        }
-
-        function updateCountdown() {
-            let now = new Date();
-            let target = getNextFriday();
-            let diff = target - now;
-            if (diff <= 0) {
-                document.getElementById("countdown").innerText = "O tempo acabou!";
-                return;
-            }
-            let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-            let minutes = Math.floor((diff / (1000 * 60)) % 60);
-            let seconds = Math.floor((diff / 1000) % 60);
-            document.getElementById("countdown").innerText = `Tempo restante: ${hours}h ${minutes}m ${seconds}s`;
-        }
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
-
         document.getElementById('loginForm').addEventListener('submit', function(event) {
             event.preventDefault();
             window.location.href = "menu";
         });
     </script>
+
+<div class="countdown-container">
+    <div id="countdown"></div>
+</div>
+
+<style>
+    .countdown-container {
+        position: absolute;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px 20px;
+        border-radius: 10px;
+    }
+</style>
+
+<script>
+    function getNextFriday() {
+        let now = new Date();
+        let nextFriday = new Date();
+        nextFriday.setDate(now.getDate() + ((5 - now.getDay() + 7) % 7)); // Próxima sexta-feira
+        nextFriday.setHours(20, 0, 0, 0); // 20:00
+        return nextFriday;
+    }
+
+    function updateCountdown() {
+        let now = new Date();
+        let target = getNextFriday();
+        let diff = target - now;
+
+        if (diff <= 0) {
+            document.getElementById("countdown").innerText = "O tempo acabou!";
+            return;
+        }
+
+        let days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        let hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        let minutes = Math.floor((diff / (1000 * 60)) % 60);
+        let seconds = Math.floor((diff / 1000) % 60);
+
+        document.getElementById("countdown").innerText = `Tempo para o lançamento: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+</script>
+
 </body>
 </html>
