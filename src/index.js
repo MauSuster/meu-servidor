@@ -1,41 +1,41 @@
 const express = require("express")
 require("dotenv").config();
-const connString = process.env.CONNECTION_STRING;
-const sql = require("mssql");
 
-const path = require("path")
+const { execSQLQuery } = require("./db");
+const path = require("path");
 const app = express()
 const router = express.Router()
 
-let connection = null;
-async function getConnection(){
-  if(connection) return connection;
-
-  await sql.connect(connString);
-  return connection
-}
-
-async function execSQLQuery(sqlQry){
-    await getConnection();
-    const request = new sql.Request();
-    const {recordset} = await request.query(sqlQry);
-    return recordset;
-
-}
-
 app.use(express.static(path.join(__dirname, '/pages/public')));
+
+app.use(express.json());
+
+app.delete("/vendedores/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    await execSQLQuery("DELETE FROM Vendedores WHERE ID=" + id);
+    res.sendStatus(204);
+})
+
+app.patch("/vendedores/:id", async (req, res) => {
+    const id = parseInt(req.params.id);
+    const { nome, email, senha } = req.body;
+    await execSQLQuery(`UPDATE Vendedores SET NOME='${nome}', EMAIL='${email}',SENHA='${senha}' WHERE ID=${id}`);
+    res.sendStatus(200);
+})
 
 app.post("/vendedores", async (req, res) =>{
     const { id, nome, email, senha} = req.body;
     await execSQLQuery(`INSERT INTO Vendedores(ID, NOME, EMAIL, SENHA) VALUES (${id}, '${nome}', '${email}', '${senha}')`);
+    res.sendStatus(201);
 })
-app.use("/vendedores/:id", async (req, res) => {
+
+app.get("/vendedores/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     const results = await execSQLQuery("SELECT * FROM Vendedores WHERE ID=" + id);
     res.json(results);
 })
 
-app.use("/vendedores", async (req, res) =>{
+app.get("/vendedores", async (req, res) =>{
     const results = await execSQLQuery("SELECT * FROM Vendedores");
     res.json(results);
 })
