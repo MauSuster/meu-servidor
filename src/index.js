@@ -40,18 +40,12 @@ app.get("/vendedores", async (req, res) =>{
     res.json(results);
 })
 
-
-
 router.get("/calculoInt", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/calculoInt.html" ))
 })
 
 router.get("/calculoNac", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/calculoNac.html" ))
-})
-
-router.get("/", (req, res)=>{
-    res.sendFile(path.join(__dirname + "/pages/home.html" ))
 })
 
 router.get("/menu", (req, res)=>{
@@ -64,6 +58,10 @@ router.get("/result", (req, res)=>{
 
 router.get("/resultInt", (req, res)=>{
     res.sendFile(path.join(__dirname + "/pages/resultInt.html" ))
+})
+
+router.get("/", (req, res)=>{
+    res.sendFile(path.join(__dirname + "/pages/home.html" ))
 })
 
 app.use(router)

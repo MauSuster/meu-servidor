@@ -162,7 +162,7 @@
     function getNextFriday() {
         let now = new Date();
         let nextFriday = new Date();
-        nextFriday.setDate(now.getDate() + ((5 - now.getDay() + 7) % 7)); // Próxima sexta-feira
+        nextFriday.setDate(now.getDate() + ((6 - now.getDay() + 7) % 7)); // Próxima sexta-feira
         nextFriday.setHours(20, 0, 0, 0); // 20:00
         return nextFriday;
     }
