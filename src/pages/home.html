@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+  
+  <link rel="stylesheet" href="/styles.css">
+
   <meta charset="UTF-8">
   <title>Home</title>
 </head>
@@ -15,11 +18,11 @@
       fetch('/api/getUserId')
         .then(response => response.text()) // ou response.json() se você tiver certeza do formato
         .then(data => {
-          // Converter os dados para JSON
+
           const Resposta = JSON.parse(data);
           console.log("tudo:", Resposta);
 
-          // Exemplo: se o JSON tiver uma propriedade 'userID' no nível raiz
+
           console.log(`iD: ${Resposta.userID}`);
 
           document.getElementById('resultado').innerText = `Seu usuário é: ${Resposta.userID}`;

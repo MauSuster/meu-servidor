@@ -1,0 +1,35 @@
+html {
+    background-color: #bec5cb;
+  }
+
+body {
+    width: 600px;
+    margin: 0 auto;
+    background-color: #4372e7;
+    padding: 0 20px 20px 20px;
+    border: 2px solid black;
+  }
+
+  #btnRequisicao {
+    background-color: #b07624; /* Azul */
+    color: white; /* Texto branco */
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s ease;
+}
+
+#btnRequisicao:hover {
+    background-color: #b076247c; /* Azul mais escuro ao passar o mouse */
+}
+
+#resultado {
+    background-color: #f4f4f4;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-top: 10px;
+    white-space: pre-wrap; /* Mantém a formatação do JSON */
+    font-family: monospace;
+}

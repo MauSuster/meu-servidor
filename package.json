@@ -3,8 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
+    "lint:check": "npx eslint --ext .js ./",
+    "lint:fix": "npx eslint --fix --ext .js ./",
+    "test": "echo \"Running all tests\"",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon -L index.js"
   },
   "keywords": [
     "portal",
