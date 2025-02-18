@@ -1,18 +1,18 @@
 {
-  "name": "meu-servidor",
+  "name": "Portal",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "projeto",
-    "sexta"
+    "portal",
+    "totvs"
   ],
-  "author": "nois",
+  "author": "Mauricio Suster",
   "license": "ISC",
-  "description": "Aplicacao do projeto de setxa",
+  "description": "Portal de representante totvs",
   "dependencies": {
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
