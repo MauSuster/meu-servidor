@@ -1,35 +1,249 @@
-html {
-    background-color: #bec5cb;
-  }
 
 body {
-    width: 600px;
-    margin: 0 auto;
-    background-color: #4372e7;
-    padding: 0 20px 20px 20px;
-    border: 2px solid black;
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #e8e8e8; 
+  padding: 20px;
+  margin: 0;
+}
+
+
+h1 {
+  color: #222; 
+}
+
+#titulo1 {
+  color: white;
+  background-color: #ff5722; 
+  max-width: 800px;
+  text-align: center;
+  white-space: nowrap;
+  border: 2px solid #d84315; /
+  border-radius: 5px;
+  display: block;
+  margin: 0 auto;
+  padding: 10px 20px;
+}
+
+/* Estilização do menu lateral */
+#menuToggle {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #673ab7; 
+  color: white;
+  padding: 10px 15px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  border-radius: 5px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+#sideMenu {
+  width: 250px;
+  height: 100%;
+  background-color: #4527a0; /* Roxo mais escuro */
+  position: fixed;
+  top: 0;
+  left: -250px;
+  transition: left 0.3s ease;
+  padding-top: 60px;
+  box-shadow: 3px 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#sideMenu.active {
+  left: 0;
+}
+
+/* Botão de fechar */
+#closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  cursor: pointer;
+  color: white;
+}
+
+/* Estilização dos links do menu lateral */
+#sideMenu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#sideMenu ul li {
+  padding: 15px;
+}
+
+#sideMenu ul li a {
+  text-decoration: none;
+  color: white;
+  font-size: 18px;
+  display: block;
+  background-color: #5e35b1; /* Roxo intermediário */
+  padding: 10px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+#sideMenu ul li a:hover {
+  background-color: #512da8;
+  transform: scale(1.05);
+}
+
+/* Botão de entrada */
+#produtoNome {
+  padding: 5px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  background-color: #ff9800; /* Laranja mais claro */
+  color: white;
+  border: 2px solid #ef6c00;
+  border-radius: 5px;
+  display: inline-block;
+  max-width: 1000px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+/* Inputs e botões */
+input {
+  padding: 8px;
+  font-size: 16px;
+  width: 200px;
+  margin-right: 10px;
+}
+
+button {
+  padding: 8px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #e65100;
+}
+
+/* Tabela */
+table {
+  margin: 20px auto;
+  width: 90%;
+  max-width: 800px;
+  border-collapse: collapse;
+  background: white;
+}
+
+th, td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  text-align: center;
+  white-space: nowrap;
+}
+
+th {
+  background-color: #ff5722;
+  color: white;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #ddd;
+}
+
+/* Lista */
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+  margin: 10px;
+  display: inline;
+}
+
+#voltar {
+  display: block;
+  text-align: left;
+  margin-left: 10px;
+  color:#ff5722;
+}
+
+/* Links */
+li a {
+  padding: 5px 10px;
+  margin: 0;
+  background: #673ab7;
+  text-decoration: none;
+  color: #FFF;
+  border-radius: 5px;
+}
+
+li a:hover {
+  background: #9575cd;
+  color: #000;
+}
+
+/* Menu horizontal (caso ainda seja usado) */
+#Menu {
+  list-style: none;
+  padding: 0;
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background-color: #673ab7;
+  border-radius: 10px;
+  padding: 10px 20px;
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#Menu li {
+  display: inline-block;
+}
+
+#Menu li a {
+  text-decoration: none;
+  padding: 10px 20px;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #5e35b1;
+  border-radius: 5px;
+  transition: 0.3s;
+  display: block;
+}
+
+#Menu li a:hover {
+  background-color: #512da8;
+  transform: scale(1.05);
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  #menuToggle {
+    font-size: 18px;
+    padding: 8px 12px;
   }
 
-  #btnRequisicao {
-    background-color: #b07624; /* Azul */
-    color: white; /* Texto branco */
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background 0.3s ease;
-}
+  #sideMenu {
+    width: 200px;
+  }
 
-#btnRequisicao:hover {
-    background-color: #b076247c; /* Azul mais escuro ao passar o mouse */
-}
+  #sideMenu ul li {
+    padding: 12px;
+  }
 
-#resultado {
-    background-color: #f4f4f4;
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-top: 10px;
-    white-space: pre-wrap; /* Mantém a formatação do JSON */
-    font-family: monospace;
+  #Menu {
+    flex-direction: column;
+    align-items: center;
+  }
 }

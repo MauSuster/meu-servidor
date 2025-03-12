@@ -1,37 +1,31 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  
-  <link rel="stylesheet" href="/styles.css">
-
-  <meta charset="UTF-8">
-  <title>Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal TOTVS</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Qual o seu usuário?</h1>
-  <button id="btnRequisicao">Consultar usuário</button>
-  <pre id="resultado"></pre>
 
-  <script>
-    document.getElementById('btnRequisicao').addEventListener('click', () => {
-      // Faz a requisição para a rota do seu servidor
-      fetch('/api/getUserId')
-        .then(response => response.text()) // ou response.json() se você tiver certeza do formato
-        .then(data => {
+    <h1 id="titulo1">Portal TOTVS</h1>
 
-          const Resposta = JSON.parse(data);
-          console.log("tudo:", Resposta);
+    <div id="menuToggle" onclick="toggleMenu()">☰ Menu</div>
 
+    <nav id="sideMenu">
+        <div id="closeBtn" onclick="toggleMenu()">×</div>
+        <ul>
+            <li><a href="consulta_estoque">Consulta Estoque</a></li>
+            <li><a href="consulta_pedido">Consulta Pedido de Venda</a></li>
+        </ul>
+    </nav>
 
-          console.log(`iD: ${Resposta.userID}`);
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById("sideMenu");
+            menu.classList.toggle("active");
+        }
+    </script>
 
-          document.getElementById('resultado').innerText = `Seu usuário é: ${Resposta.userID}`;
-        })
-        .catch(error => {
-          console.error('Erro na requisição:', error);
-          document.getElementById('resultado').innerText = 'Erro: ' + error;
-        });
-    });
-  </script>
 </body>
 </html>

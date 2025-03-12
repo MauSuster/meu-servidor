@@ -1,12 +1,12 @@
 {
-  "name": "Portal",
+  "name": "Projeto_portal",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "lint:check": "npx eslint --ext .js ./",
     "lint:fix": "npx eslint --fix --ext .js ./",
     "test": "echo \"Running all tests\"",
-    "start": "node index.js",
+    "start": "node src/index.js",
     "start:dev": "nodemon -L index.js"
   },
   "keywords": [

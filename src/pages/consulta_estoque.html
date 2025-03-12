@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estoque API</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <li id="voltar"><a href="/">Voltar</a></li>
+  <h1>Consulta de Estoque</h1>
+  <input type="text" id="codigoProduto" placeholder="Digite o código do produto">
+  <button id="btnRequisicao">Consultar estoque</button>
+  <H3>Produto:</H3>
+  <H3 id="produtoNome"></H3>
+  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Código</th>
+        
+        <th>U.M.</th>
+
+        <th>Armazén</th>
+        <th>Endereço</th>
+        <th>Lote</th>
+        <th>Qnt Total</th>
+        <th>Empenho</th>
+        <th>Qnt total 2a U.M.</th>
+        <th>Empenho 2a U.M.</th>
+      </tr>
+    </thead>
+    <tbody id="tabelaEstoque"></tbody>
+  </table>
+  
+  <script>
+    document.getElementById('btnRequisicao').addEventListener('click', () => {
+      const produto = document.getElementById('codigoProduto').value.trim();
+      if (!produto) {
+        alert("Digite um código de produto!");
+        return;
+      }
+        fetch(`/api/estoque?produto=${produto}`)
+        .then(response => response.json())
+        .then(data => {
+          const tabela = document.getElementById('tabelaEstoque');
+          const produtoNome = document.getElementById('produtoNome');
+          
+          // Limpa a tabela antes de adicionar novos dados
+          tabela.innerHTML = ""; 
+
+          // Verifica se a resposta contém dados válidos
+          if (!Array.isArray(data)) {
+            alert("Erro ao processar os dados recebidos.");
+            return;
+          }
+
+          produtoNome.innerText = data[0][1] || "Produto não encontrado";
+
+          const indicesDesejados = [0, 2, 4, 5, 6, 7, 8, 9, 10]; 
+          // Adiciona cada item como uma linha na tabela
+          data.forEach(item => {
+        const row = document.createElement('tr');
+
+        indicesDesejados.forEach(index => {
+          const td = document.createElement('td');
+          td.innerText = item[index] !== undefined ? item[index] : '-'; // Se não houver dado, coloca "-"
+          row.appendChild(td);
+        });
+
+        tabela.appendChild(row);
+        
+      });
+        })
+        .catch(error => {
+          console.error('Erro na requisição:', error);
+          alert("Erro ao consultar estoque.");
+        });
+      });
+  </script>
+</body>
+</html>
