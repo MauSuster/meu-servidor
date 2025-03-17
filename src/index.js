@@ -21,6 +21,23 @@ app.use(express.json());
 
 router.get("/consulta_estoque", (req, res) => {
   res.sendFile(path.join(__dirname, "/pages/consulta_estoque.html"));
+  
+
+app.use(express.json());
+
+});
+
+router.get("/consulta_pedido", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/consulta_pedido.html"));
+  
+
+app.use(express.json());
+
+});
+
+router.get("/pedido/:pedido", (req, res) => {
+  res.sendFile(path.join(__dirname, "/pages/pedido.html"));
+  
 
 app.use(express.json());
 

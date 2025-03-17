@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Estoque API</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <li id="voltar"><a href="/">Voltar</a></li>
+  <h1>Consulta de Estoque</h1>
+  <input type="text" id="codigoVendedor" placeholder="Digite o código vendedor">
+  <button id="btnRequisicao">Consultar Pedido de Venda</button>
+  
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Filial</th>
+        <th>Número</th>
+        <th>Cliente</th>
+        <th>Nome</th>
+        <th>Data</th>
+        <th>Transportadora</th>
+        <th>Vendedor</th>
+        <th>Ação</th> <!-- Nova coluna para o ícone de ação -->
+      </tr>
+    </thead>
+    <tbody id="tabelaPedidos"></tbody>
+  </table>
+  
+  <script>
+    document.getElementById('btnRequisicao').addEventListener('click', () => {
+      const vendedor = document.getElementById('codigoVendedor').value.trim();
+      if (!vendedor) {
+        alert("Digite um código de pedido!");
+        return;
+      }
+
+      fetch(`/api/pedido?vendedor=${vendedor}`)
+        .then(response => response.json())
+        .then(data => {
+          const tabela = document.getElementById('tabelaPedidos');
+          
+          // Limpa a tabela antes de adicionar novos dados
+          tabela.innerHTML = ""; 
+
+          // Verifica se a resposta contém dados válidos
+          if (!Array.isArray(data)) {
+            alert("Erro ao processar os dados recebidos.");
+            return;
+          }
+
+          const indicesDesejados = [0, 1, 2, 3, 4, 5, 6];
+
+          // Adiciona cada item como uma linha na tabela
+          data.forEach(item => {
+            const row = document.createElement('tr');
+
+            indicesDesejados.forEach((index, i) => {
+              const td = document.createElement('td');
+
+              // Verifica se é o quinto valor (índice 4) e formata a data
+              if (index === 4 && item[index]) {
+                const dataStr = item[index].toString(); // Converte para string (caso seja numérico)
+                if (dataStr.length === 8) { // Garante que tem o formato correto
+                  const dataFormatada = `${dataStr.substring(6, 8)}/${dataStr.substring(4, 6)}/${dataStr.substring(0, 4)}`;
+                  td.innerText = dataFormatada;
+                } else {
+                  td.innerText = item[index]; // Caso não seja um formato esperado, mantém o original
+                }
+              } else {
+                td.innerText = item[index] !== undefined ? item[index] : '-'; // Se não houver dado, coloca "-"
+              }
+
+              row.appendChild(td);
+            });
+
+            // Adiciona a última célula com o ícone clicável
+            const actionTd = document.createElement('td');
+            const link = document.createElement('a');
+            link.href = `/pedido/${item[1]}`; // O número do pedido (índice 1)
+            link.innerHTML = '🔍'; // Ícone de lupa
+            link.style.textDecoration = 'none'; // Remove sublinhado padrão
+
+            actionTd.appendChild(link);
+            row.appendChild(actionTd);
+
+            tabela.appendChild(row);
+          });
+        })
+        .catch(error => {
+          console.error('Erro na requisição:', error);
+          alert("Erro ao consultar estoque.");
+        });
+
+        fetch(`/api/estoque?produto=${produto}`)
+        .then(response => response.json())
+        .then(data => {
+          const tabela = document.getElementById('tabelaEstoque');
+          const produtoNome = document.getElementById('produtoNome');
+          
+          // Limpa a tabela antes de adicionar novos dados
+          tabela.innerHTML = ""; 
+
+          // Verifica se a resposta contém dados válidos
+          if (!Array.isArray(data)) {
+            alert("Erro ao processar os dados recebidos.");
+            return;
+          }
+
+          produtoNome.innerText = data[0][1] || "Produto não encontrado";
+
+          const indicesDesejados = [0, 2, 4, 5, 6, 7, 8, 9, 10]; 
+          // Adiciona cada item como uma linha na tabela
+          data.forEach(item => {
+        const row = document.createElement('tr');
+
+        indicesDesejados.forEach(index => {
+          const td = document.createElement('td');
+          td.innerText = item[index] !== undefined ? item[index] : '-'; // Se não houver dado, coloca "-"
+          row.appendChild(td);
+        });
+
+        tabela.appendChild(row);
+        
+      });
+        })
+        .catch(error => {
+          console.error('Erro na requisição:', error);
+          alert("Erro ao consultar estoque.");
+        });
+
+    });
+  </script>
+</body>
+</html>

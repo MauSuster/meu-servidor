@@ -1,4 +1,3 @@
-
 body {
   font-family: Arial, sans-serif;
   text-align: center;
@@ -18,7 +17,7 @@ h1 {
   max-width: 800px;
   text-align: center;
   white-space: nowrap;
-  border: 2px solid #d84315; /
+  border: 2px solid #d84315; 
   border-radius: 5px;
   display: block;
   margin: 0 auto;
@@ -96,7 +95,6 @@ h1 {
 #produtoNome {
   padding: 5px 20px;
   font-size: 14px;
-  cursor: pointer;
   background-color: #ff9800; /* Laranja mais claro */
   color: white;
   border: 2px solid #ef6c00;
@@ -247,3 +245,21 @@ li a:hover {
     align-items: center;
   }
 }
+
+#cabecalhoPedido {
+  margin-bottom: 20px;
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+#cabecalhoPedido p {
+  margin: 5px 0;
+}
+
+#detalhePedido {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+

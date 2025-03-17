@@ -76,7 +76,90 @@ routes.get('/api/estoque', (req, res) => {
   });
 });
 
+routes.get('/api/pedido', (req, res) => {
+  const vendedor = req.query.vendedor;
+  const options = {
+    hostname: '177.139.130.247',
+    port: 9094,
+    path: `/REST/PEDIDO_CONSULTA?VENDEDOR=${encodeURIComponent(vendedor)}`,
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json; charset=UTF-8'
+    }
+  };
+  http.get(options, (response) => {
+    let data = '';
 
+    response.on('data', (chunk) => {
+      data += chunk.toString();
+    });
+
+    response.on('end', () => {
+      res.send(data);
+    });
+  }).on('error', (error) => {
+    console.error('Erro ao buscar dados:', error);
+    res.status(500).json({ error: 'Erro ao buscar dados' });
+  });
+});
+
+routes.get('/api/detalhePedido', (req, res) => {
+  const pedido = req.query.pedido;
+  const options = {
+    hostname: '177.139.130.247',
+    port: 9094,
+    path: `/REST/PEDIDO_DESC_CONSULTA?PEDIDO=${encodeURIComponent(pedido)}`,
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json; charset=UTF-8'
+    }
+  };
+  http.get(options, (response) => {
+    let data = '';
+
+    response.on('data', (chunk) => {
+      data += chunk.toString();
+    });
+
+    response.on('end', () => {
+      res.send(data);
+    });
+  }).on('error', (error) => {
+    console.error('Erro ao buscar dados:', error);
+    res.status(500).json({ error: 'Erro ao buscar dados' });
+  });
+});
+
+routes.get('/api/IDPedido', (req, res) => {
+  const pedido = req.query.pedido;
+  console.log(pedido)
+  const options = {
+    hostname: '177.139.130.247',
+    port: 9094,
+    path: `/REST/PEDIDO_UN_CONSULTA?PEDIDO=${encodeURIComponent(pedido)}`,
+    method: 'GET',
+    headers: { 
+      'Content-Type': 'application/json',
+      'Accept': 'application/json; charset=UTF-8'
+    }
+  };
+  http.get(options, (response) => {
+    let data = '';
+
+    response.on('data', (chunk) => {
+      data += chunk.toString();
+    });
+
+    response.on('end', () => {
+      res.send(data);
+    });
+  }).on('error', (error) => {
+    console.error('Erro ao buscar dados:', error);
+    res.status(500).json({ error: 'Erro ao buscar dados' });
+  });
+});
 
 
 
